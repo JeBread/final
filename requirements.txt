@@ -19,6 +19,7 @@ django-allauth==0.52.0
 django-bootstrap-v5==1.0.7
 django-cors-headers==3.14.0
 django-extensions==3.1.5
+django-rest-auth==0.9.5
 django-seed==0.3.1
 djangorestframework==3.13.1
 drf-yasg==1.21.5
@@ -32,6 +33,7 @@ jedi==0.18.2
 Jinja2==3.1.2
 MarkupSafe==2.1.2
 matplotlib-inline==0.1.6
+mysql-connector-python==8.0.32
 oauthlib==3.2.2
 packaging==23.1
 parso==0.8.3

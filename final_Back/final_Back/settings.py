@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'accounts',
     'community',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'movies',
     'corsheaders',
     'django.contrib.admin',
@@ -136,3 +138,11 @@ CORS_ALLOWER_ORIGINS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+AUTH_USER_MODEL = 'accounts.User'
