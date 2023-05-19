@@ -1,16 +1,54 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link :to="{ name: 'MovieView' }">영화 목록</router-link> |
-      <router-link :to="{ name: 'QuizView' }">퀴즈</router-link> |
-      <router-link :to="{ name: 'RecommendedView' }">영화 추천</router-link> |
-      <router-link :to="{ name: 'CommunityView' }">커뮤니티</router-link> |
-      <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> |
-      <router-link :to="{ name: 'ProfileView' }">프로필</router-link>
+    <nav class="d-flex justify-content-between">
+      <img src="./assets/logo.png" alt="" id="logo" @click="toHome" />
+      <div>
+        <router-link v-if="token" :to="{ name: 'MovieView' }"
+          >영화 목록</router-link
+        ><span v-if="token"> | </span>
+        <router-link v-if="token" :to="{ name: 'QuizView' }">퀴즈</router-link>
+        <span v-if="token"> | </span>
+        <router-link v-if="token" :to="{ name: 'RecommendedView' }"
+          >영화 추천</router-link
+        ><span v-if="token"> | </span>
+        <router-link v-if="token" :to="{ name: 'CommunityView' }"
+          >커뮤니티</router-link
+        ><span v-if="token"> | </span>
+        <router-link v-if="!token" :to="{ name: 'SignUpView' }"
+          >회원가입</router-link
+        >
+        <!-- <router-link v-if="token" :to="{ name: 'ProfileView' }"
+          >프로필</router-link
+        > -->
+        <span v-if="token" class="logout" @click="logout">로그아웃</span>
+      </div>
     </nav>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
+  },
+  methods: {
+    toHome() {
+      if (this.token) {
+        this.$router.push({ name: "MovieView" });
+      } else {
+        this.$router.push({ name: "LoginView" });
+      }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
+};
+</script>
 
 <style>
 #app {
