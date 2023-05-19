@@ -51,3 +51,6 @@ def like(request,article_pk):
         'like_users': article.like_users.count(),
     }
     return Response(data=context)
+
+
+
