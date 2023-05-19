@@ -10,3 +10,4 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200)
     ost=models.CharField(max_length=200)
     video=models.CharField(max_length=200)
+    
