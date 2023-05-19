@@ -14,6 +14,7 @@ export default new Vuex.Store({
   state: {
     movies: [],
     token: null,
+    articles: [],
   },
   getters: {
     isLogin(state) {
@@ -23,17 +24,29 @@ export default new Vuex.Store({
   mutations: {
     GET_MOVIES(state, movies) {
       state.movies = movies;
+      console.log(movies);
+    },
+    GET_ARTICLES(state, articles) {
+      state.articles = articles;
     },
     SAVE_TOKEN(state, token) {
       state.token = token;
       router.push({ name: "MovieView" });
+    },
+    DEL_TOKEN(state) {
+      state.token = null;
+      router.push({ name: "LoginView" });
+    },
+    GET_QUIZ(state, quiz) {
+      state.quiz = quiz;
+      console.log(JSON.parse(quiz.correct));
     },
   },
   actions: {
     getMovies(context) {
       axios({
         method: "get",
-        url: `${API_URL}/api/v1/movies/`,
+        url: `${API_URL}/movies/`,
       })
         .then((res) => {
           context.commit("GET_MOVIES", res.data);
@@ -42,10 +55,24 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    getArticles(context) {
+      axios({
+        method: "get",
+        url: `${API_URL}/community/`,
+      })
+        .then((res) => {
+          context.commit("GET_ARTICLES", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
     signUp(context, payload) {
       const username = payload.username;
       const password1 = payload.password1;
       const password2 = payload.password2;
+      console.log(username, password1, password2);
 
       axios({
         method: "post",
@@ -77,6 +104,21 @@ export default new Vuex.Store({
       })
         .then((res) => {
           context.commit("SAVE_TOKEN", res.data.key);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    logout(context) {
+      context.commit("DEL_TOKEN");
+    },
+    getQuiz(context) {
+      axios({
+        method: "get",
+        url: `${API_URL}/movies/ostQuiz/`,
+      })
+        .then((res) => {
+          context.commit("GET_QUIZ", res.data);
         })
         .catch((err) => {
           console.log(err);

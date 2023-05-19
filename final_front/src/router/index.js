@@ -21,7 +21,14 @@ const routes = [
     name: "LogInView",
     component: LogInView,
   },
+  {
+    path: "/signup",
+    name: "SignUpView",
+    component: SignUpView,
+  },
+
   // 로그인 이후 페이지는 MovieView
+  // Movie 관련 router
   {
     path: "/movie",
     name: "MovieView",
@@ -29,21 +36,13 @@ const routes = [
     // component: () => import("@/views/MovieView.vue"),
   },
   {
-    path: "/signup",
-    name: "SignUpView",
-    component: SignUpView,
-  },
-  {
     path: "/detail",
     name: "DetailView",
     // component: DetailView,
     component: () => import("@/views/DetailView.vue"),
   },
-  {
-    path: "/Profile/:userName",
-    name: "ProfileView",
-    component: () => import("@/views/ProfileView.vue"),
-  },
+
+  // 커뮤니티 관련 router
   {
     path: "/community",
     name: "CommunityView",
@@ -51,16 +50,34 @@ const routes = [
     component: () => import("@/views/CommunityView.vue"),
   },
   {
+    path: "/create",
+    name: "CreateView",
+    component: () => import("@/views/CreateView.vue"),
+  },
+  {
+    path: "/:articleId",
+    name: "ArticleDetailView",
+    component: () => import("@/views/ArticleDetailView.vue"),
+  },
+  // 퀴즈 관련 router
+  {
     path: "/quiz",
     name: "QuizView",
     component: QuizView,
   },
+  // 추천 영화 관련 router
   {
     path: "/recommended",
     name: "RecommendedView",
     // component: RecommendedView,
     component: () => import("@/views/RecommendedView.vue"),
   },
+  // 프로필 관련 router
+  // {
+  //   path: "/Profile/:userName",
+  //   name: "ProfileView",
+  //   component: () => import("@/views/ProfileView.vue"),
+  // },
   // 404 페이지
   {
     path: "/404",
