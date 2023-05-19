@@ -93,3 +93,8 @@ def ostQuiz(request):
         'uncorrect2':serializers.serialize('json', movie3),
     })
     
+@api_view(['GET'])
+def recommend(request):
+    movies=Movie.objects.all().order_by('-answerCnt','-vote_average')[:5]
+    serializer=MovieListSerializer(movies,many=True)
+    return Response(serializer.data)
