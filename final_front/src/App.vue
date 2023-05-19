@@ -1,10 +1,14 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link :to="{ name: 'MovieView' }">영화 목록</router-link> |
+      <router-link :to="{ name: 'QuizView' }">퀴즈</router-link> |
+      <router-link :to="{ name: 'RecommendedView' }">영화 추천</router-link> |
+      <router-link :to="{ name: 'CommunityView' }">커뮤니티</router-link> |
+      <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> |
+      <router-link :to="{ name: 'ProfileView' }">프로필</router-link>
     </nav>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
