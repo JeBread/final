@@ -1,14 +1,7 @@
 <template>
-  <div id="app">
+  <div class="background" id="app">
     <nav class="d-flex justify-content-between">
-      <img
-        src="./assets/logo.png"
-        alt=""
-        id="logo"
-        @click="toHome"
-        width="50"
-        height="50"
-      />
+      <img src="./assets/logo.png" alt="" id="logo" @click="toHome" />
       <div>
         <router-link v-if="token" :to="{ name: 'MovieView' }"
           >영화 목록</router-link
@@ -44,7 +37,7 @@ export default {
       if (this.token) {
         this.$router.push({ name: "MovieView" });
       } else {
-        this.$router.push({ name: "LoginView" });
+        this.$router.push({ name: "LogInView" });
       }
     },
     logout() {
@@ -57,7 +50,7 @@ export default {
 <style>
 @font-face {
   font-family: "Riders-font";
-  src: url("./assets/fonts/BMHANNAPro.ttf");
+  src: url("./assets/fonts/BMHANNAAir_ttf.ttf");
 }
 /* html,
 body {
@@ -80,9 +73,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
-  background-color: rgb(42 193 188);
   height: 100%;
   /* overflow: hidden; */
+}
+
+.background {
+  background-image: url("./assets/header.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
 }
 
 nav {
@@ -120,8 +122,8 @@ nav a.router-link-exact-active {
 }
 
 #logo {
-  width: 150px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 }
 
 #logo:hover {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Detail</h1>
+    <h1 class="">Detail</h1>
     <img :src="movie.poster_path" alt="" width="200" />
     <p>영화 제목 : {{ movie?.title }}</p>
     <p>평점 : {{ movie.vote_average }}</p>
