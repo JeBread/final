@@ -1,9 +1,10 @@
 <template>
   <div>
     <h1>Detail</h1>
-    <p>글 번호 : {{ movie?.id }}</p>
-    <p>제목 : {{ movie?.title }}</p>
-    <p>내용 : {{ movie?.content }}</p>
+    <p>{{ movie?.id }}</p>
+    <img :src="poster_url" alt="" width="200" />
+    <p>영화 제목 : {{ movie?.title }}</p>
+    <p>줄거리 : {{ movie?.overview }}</p>
     <p>작성시간 : {{ movie?.created_at }}</p>
     <p>수정시간 : {{ movie?.updated_at }}</p>
   </div>

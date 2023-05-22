@@ -37,6 +37,11 @@ export default {
         "https://image.tmdb.org/t/p/original" + this.movie.poster_path,
     };
   },
+  computed: {
+    movies() {
+      return this.$store.state.movies;
+    },
+  },
 };
 </script>
 

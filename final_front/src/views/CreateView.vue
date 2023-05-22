@@ -37,10 +37,13 @@ export default {
       }
       axios({
         method: "post",
-        url: `${API_URL}/community/`,
+        url: `${API_URL}/community/create/`,
         data: {
           title: title,
           content: content,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
         },
       })
         .then(() => {

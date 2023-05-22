@@ -15,6 +15,7 @@ export default new Vuex.Store({
     movies: [],
     token: null,
     articles: [],
+    movie: null,
   },
   getters: {
     isLogin(state) {
@@ -24,10 +25,10 @@ export default new Vuex.Store({
   mutations: {
     GET_MOVIES(state, movies) {
       state.movies = movies;
-      console.log(movies);
     },
     GET_ARTICLES(state, articles) {
       state.articles = articles;
+      console.log(articles);
     },
     SAVE_TOKEN(state, token) {
       state.token = token;
@@ -39,7 +40,6 @@ export default new Vuex.Store({
     },
     GET_QUIZ(state, quiz) {
       state.quiz = quiz;
-      console.log(JSON.parse(quiz.correct));
     },
   },
   actions: {
@@ -62,6 +62,7 @@ export default new Vuex.Store({
       })
         .then((res) => {
           context.commit("GET_ARTICLES", res.data);
+          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);

@@ -17,10 +17,7 @@
         <router-link v-if="!token" :to="{ name: 'SignUpView' }"
           >회원가입</router-link
         >
-        <!-- <router-link v-if="token" :to="{ name: 'ProfileView' }"
-          >프로필</router-link
-        > -->
-        <span v-if="token" class="logout" @click="logout">로그아웃</span>
+        <button v-if="token" class="logout" @click="logout">로그아웃</button>
       </div>
     </nav>
     <router-view />
