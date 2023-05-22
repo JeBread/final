@@ -74,9 +74,9 @@ export default {
             pk:this.correct.pk
           },
         })
-          .then((res) => {
-            console.log('suc')
-            console.log(res)
+          .then(() => {
+            // console.log('suc')
+            // console.log(res)
           })
           .catch((err) => {
             console.log(err);

@@ -15,6 +15,9 @@
         ><span v-if="token"> | </span>
         <router-link v-if="token" :to="{ name: 'QuizView' }">퀴즈</router-link>
         <span v-if="token"> | </span>
+        <router-link v-if="token" :to="{ name: 'OstView' }"
+          >Ost</router-link
+        ><span v-if="token"> | </span>
         <router-link v-if="token" :to="{ name: 'RecommendedView' }"
           >영화 추천</router-link
         ><span v-if="token"> | </span>
