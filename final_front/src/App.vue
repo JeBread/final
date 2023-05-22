@@ -55,24 +55,83 @@ export default {
 </script>
 
 <style>
-#app {
+@font-face {
+  font-family: "Riders-font";
+  src: url("./assets/fonts/BMHANNAPro.ttf");
+}
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+} */
+/* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+} */
+#app {
+  /* font-family: 'Gowun Dodum', sans-serif; */
+  font-family: "Riders-font";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: white;
+  background-color: rgb(42 193 188);
+  height: 100%;
+  /* overflow: hidden; */
 }
 
 nav {
-  padding: 30px;
+  padding: 10px 150px 30px;
+  line-height: 80px;
 }
 
-nav a {
+/* nav a {
   font-weight: bold;
   color: #2c3e50;
+} */
+nav a {
+  font-weight: bold;
+  color: rgb(166 229 227);
+  text-decoration: none;
+}
+nav a:hover {
+  color: #0d6efd;
 }
 
-nav a.router-link-exact-active {
+/* nav a.router-link-exact-active {
   color: #42b983;
+} */
+nav a.router-link-exact-active {
+  color: #2c3e50;
+}
+.logout {
+  font-weight: bold;
+  color: rgb(166 229 227);
+  text-decoration: none;
+  cursor: pointer;
+}
+.logout:hover {
+  color: #0d6efd;
+}
+
+#logo {
+  width: 150px;
+  height: 100px;
+}
+
+#logo:hover {
+  animation: rotate_image 3s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

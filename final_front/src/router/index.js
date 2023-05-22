@@ -7,7 +7,7 @@ import SignUpView from "@/views/SignUpView.vue";
 import MovieView from "@/views/MovieView.vue";
 
 import QuizView from "@/views/QuizView.vue";
-// import CommunityView from "@/views/CommunityView.vue";
+import CommunityView from "@/views/CommunityView.vue";
 // import DetailView from "@/views/DetailView.vue";
 // import RecommendedView from "@/views/RecommendedView.vue";
 import NotFound404 from "@/views/NotFound404.vue";
@@ -33,7 +33,6 @@ const routes = [
     path: "/movie",
     name: "MovieView",
     component: MovieView,
-    // component: () => import("@/views/MovieView.vue"),
   },
   {
     path: "/detail/:id",
@@ -46,8 +45,8 @@ const routes = [
   {
     path: "/community",
     name: "CommunityView",
-    // component: CommunityView,
-    component: () => import("@/views/CommunityView.vue"),
+    component: CommunityView,
+    // component: () => import("@/views/CommunityView.vue"),
   },
   {
     path: "/create",

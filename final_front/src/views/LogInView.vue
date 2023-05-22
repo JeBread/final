@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-page">
     <h1 class="fw-bold">로그인 페이지</h1>
     <form @submit.prevent="login">
       <label for="username">username : </label>
@@ -38,4 +38,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+</style>

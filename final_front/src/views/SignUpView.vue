@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="signup-page">
     <h1 class="fw-bold">회원 가입 페이지</h1>
     <form @submit.prevent="signUp">
       <label for="username">username : </label>
@@ -43,3 +43,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.signup-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+</style>
