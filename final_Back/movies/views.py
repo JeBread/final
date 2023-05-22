@@ -98,3 +98,13 @@ def recommend(request):
     movies=Movie.objects.all().order_by('-answerCnt','-vote_average')[:5]
     serializer=MovieListSerializer(movies,many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def ostQuizCorrect(request):
+    print(request.GET.get('pk'))
+    movie=Movie.objects.get(pk=request.GET.get('pk'))
+    movie.answerCnt=movie.answerCnt+1
+    movie.save()
+    print(movie.answerCnt)
+    
+    return Response()

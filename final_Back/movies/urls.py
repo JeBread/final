@@ -7,6 +7,7 @@ urlpatterns = [
     #path('getMovieList/',views.movie_data_extract),
     path('',views.movie_list),
     path('ostQuiz/',views.ostQuiz),
+    path('ostQuiz/correct/',views.ostQuizCorrect),
     path('recommend/',views.recommend),
     path('/<int:movie_pk>/',views.movie_detail),
 ]

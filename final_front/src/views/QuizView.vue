@@ -28,9 +28,6 @@ export default {
       correct:null,
       uncorrect1:null,
       uncorrect2:null,
-      correctImg:null,
-      uncorrectImg1:null,
-      uncorrectImg2:null,
       imgs:[],
     }
   },
@@ -49,18 +46,18 @@ export default {
       })
         .then((res) => {
 
-          const correct=JSON.parse(res.data.correct)[0].fields
-          const uncorrect1=JSON.parse(res.data.uncorrect1)[0].fields
-          const uncorrect2=JSON.parse(res.data.uncorrect2)[0].fields
+          const correct=JSON.parse(res.data.correct)[0]
+          const uncorrect1=JSON.parse(res.data.uncorrect1)[0]
+          const uncorrect2=JSON.parse(res.data.uncorrect2)[0]
 
-          this.videoId=correct.ost
+          this.videoId=correct.fields.ost
           this.correct=correct
-          this.uncorrect=uncorrect1
+          this.uncorrect1=uncorrect1
           this.uncorrect2=uncorrect2
           this.imgs=[]
-          this.imgs.push({imgPath:imgURL+correct.poster_path,title:correct.title})
-          this.imgs.push({imgPath:imgURL+uncorrect1.poster_path,title:uncorrect1.title})
-          this.imgs.push({imgPath:imgURL+uncorrect2.poster_path,title:uncorrect2.title})
+          this.imgs.push({imgPath:imgURL+correct.fields.poster_path,title:correct.fields.title})
+          this.imgs.push({imgPath:imgURL+uncorrect1.fields.poster_path,title:uncorrect1.fields.title})
+          this.imgs.push({imgPath:imgURL+uncorrect2.fields.poster_path,title:uncorrect2.fields.title})
           this.imgs=_.shuffle(this.imgs)
 
         })
@@ -69,7 +66,22 @@ export default {
         });
     },
     check(imgTitle){
-      if(imgTitle===this.correct.title){
+      if(imgTitle===this.correct.fields.title){
+        axios({
+          method: "get",
+          url: `${API_URL}/movies/ostQuiz/correct`,
+          params: {
+            pk:this.correct.pk
+          },
+        })
+          .then((res) => {
+            console.log('suc')
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        
         alert("정답")
       }
       else{
@@ -80,6 +92,7 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/movies/ostQuiz/`,
+        
       })
         .then((res) => {
           
