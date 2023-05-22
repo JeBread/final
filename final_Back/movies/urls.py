@@ -10,4 +10,5 @@ urlpatterns = [
     path('ostQuiz/correct/',views.ostQuizCorrect),
     path('recommend/',views.recommend),
     path('<int:movie_pk>/',views.movie_detail),
+    path('ost/',views.ost),
 ]

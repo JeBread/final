@@ -108,3 +108,11 @@ def ostQuizCorrect(request):
     print(movie.answerCnt)
     
     return Response()
+
+@api_view(['GET'])
+def ost(request):
+    movies = list(Movie.objects.all())
+
+    movies = random.sample(movies, 6)
+    serializer=MovieListSerializer(movies,many=True)
+    return Response(serializer.data)

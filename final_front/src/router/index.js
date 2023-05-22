@@ -7,6 +7,7 @@ import SignUpView from "@/views/SignUpView.vue";
 import MovieView from "@/views/MovieView.vue";
 
 import QuizView from "@/views/QuizView.vue";
+import OstView from "@/views/OstView.vue"
 import CommunityView from "@/views/CommunityView.vue";
 // import DetailView from "@/views/DetailView.vue";
 // import RecommendedView from "@/views/RecommendedView.vue";
@@ -71,6 +72,13 @@ const routes = [
     // component: RecommendedView,
     component: () => import("@/views/RecommendedView.vue"),
   },
+  {
+    path: "/ost",
+    name: "OstView",
+    component: OstView,
+  },
+
+
   // 프로필 관련 router
   // {
   //   path: "/Profile/:userName",
