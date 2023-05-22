@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1>Detail</h1>
-    <p>{{ movie?.id }}</p>
-    <img :src="poster_url" alt="" width="200" />
+    <img :src="movie.poster_path" alt="" width="200" />
     <p>영화 제목 : {{ movie?.title }}</p>
+    <p>평점 : {{ movie.vote_average }}</p>
+    <p>개봉일 : {{ movie.release_date }}</p>
     <p>줄거리 : {{ movie?.overview }}</p>
-    <p>작성시간 : {{ movie?.created_at }}</p>
-    <p>수정시간 : {{ movie?.updated_at }}</p>
+    <button @click="goBack">뒤로 가기</button>
   </div>
 </template>
 
@@ -33,10 +33,15 @@ export default {
         .then((res) => {
           console.log(res);
           this.movie = res.data;
+          this.movie.poster_path =
+            "https://image.tmdb.org/t/p/original" + this.movie.poster_path;
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };

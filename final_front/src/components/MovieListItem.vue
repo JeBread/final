@@ -1,22 +1,19 @@
 <template>
   <div class="movies container">
-    <h1>영화 페이지</h1>
     <div class="carousel-wrapper">
       <div class="carousel">
         <div class="wrapper">
           <div class="carousel-content">
-            <h5>{{ movie.id }}</h5>
-            <img :src="poster_url" alt="" width="200" />
-            <p>{{ movie.title }}</p>
-            <p>{{ movie.vote_average }}</p>
             <router-link
               :to="{
                 name: 'DetailView',
                 params: { id: movie.id },
               }"
-            >
-              [DETAIL]
+              ><img :src="poster_url" alt="" width="200" />
             </router-link>
+            <br />
+            <h5>{{ movie.title }}</h5>
+            <p>{{ movie.vote_average }}</p>
             <hr />
           </div>
         </div>

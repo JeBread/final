@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>Movie Page</h1>
-    <hr />
     <MovieList />
   </div>
 </template>

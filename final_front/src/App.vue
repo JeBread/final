@@ -1,7 +1,14 @@
 <template>
   <div id="app">
     <nav class="d-flex justify-content-between">
-      <img src="./assets/logo.png" alt="" id="logo" @click="toHome" />
+      <img
+        src="./assets/logo.png"
+        alt=""
+        id="logo"
+        @click="toHome"
+        width="50"
+        height="50"
+      />
       <div>
         <router-link v-if="token" :to="{ name: 'MovieView' }"
           >영화 목록</router-link
