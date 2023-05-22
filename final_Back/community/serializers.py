@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         
 
 class CommentSerializer(serializers.ModelSerializer):
-    username=serializers.CharField(source='user.username')
+    username=serializers.CharField(source='user.username',read_only=True)
     def create(self, validated_data):
     
         request = self.context.get("request")
@@ -31,8 +31,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     comment_set=CommentSerializer(many=True,read_only=True)
-    username=serializers.CharField(source='user.username')
-    like_users_count=serializers.IntegerField(source='like_users.count')
+    username=serializers.CharField(source='user.username',read_only=True)
+    like_users_count=serializers.IntegerField(source='like_users.count',read_only=True)
     def create(self, validated_data):
     
         request = self.context.get("request")
