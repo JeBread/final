@@ -5,6 +5,8 @@ app_name = 'movies'
 
 urlpatterns = [
     #path('getMovieList/',views.movie_data_extract),
+    path('',views.movie_list),
     path('ostQuiz/',views.ostQuiz),
-    path('recommend/',views.recommend)
+    path('recommend/',views.recommend),
+    path('/<int:movie_pk>/',views.movie_detail),
 ]
