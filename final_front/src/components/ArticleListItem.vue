@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="justify-content-center align-content-center">
     <h5>{{ article.id }}</h5>
     <router-link
       :to="{

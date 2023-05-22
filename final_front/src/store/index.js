@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
     DEL_TOKEN(state) {
       state.token = null;
-      router.push({ name: "LoginView" });
+      router.push({ name: "LogInView" });
     },
     GET_QUIZ(state, quiz) {
       state.quiz = quiz;

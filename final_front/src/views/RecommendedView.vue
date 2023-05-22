@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <h1>영화 추천 페이지</h1>
     <hr />
     <div v-for="movie in fivemovies" :key="movie" :fivemovies="fivemovies">

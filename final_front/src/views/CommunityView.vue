@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <h1>커뮤니티 페이지</h1>
     <router-link :to="{ name: 'CreateView' }">게시글 작성 </router-link>
     <hr />
