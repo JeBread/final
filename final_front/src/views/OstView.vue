@@ -1,40 +1,47 @@
 <template>
-    <div>
-        <!-- Number of fields: <input type="text"  v-model="numFields" /> -->
-        <div id="lp">
-            <div class="center"></div>
-            <div class="crosshair-x"></div>
-            <div class="crosshair-y"></div>
-        </div>
-    </div>
-  </template>
-  
-  <script>
-  const API_URL = "http://127.0.0.1:8000";
-  import axios from 'axios'
+  <div id="lp-con">
+    <!-- Number of fields: <input type="text"  v-model="numFields" /> -->
+    <div id="lp"></div>
+    <img :src="center_img" id="musicpointer" @click="playOrPause"/>
+
+    <div class="crosshair-y" style="opacity: 0;"></div>
+    <OstViewPlayer :video-id="videoId" ref="ostplayer"/>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import OstViewPlayer from '@/components/OstViewPlayer.vue';
+
+const API_URL = "http://127.0.0.1:8000";
+const imgURL = "https://image.tmdb.org/t/p/original";
+
 export default {
   name: "OstView",
+  components: {OstViewPlayer,},
   data() {
     return {
       numFields: 6,
-      movies:[],
+      movies: [],
+      center_img: null,
+      center_idx: 0,
+      videoId:null,
+      isPlaying:false,
     };
   },
   watch: {
-    numFields() {
-      this.createFields();
-      this.distributeFields();
-    },
+    // numFields() {
+    //   this.createFields();
+    //   this.distributeFields();
+    // },
   },
-  created(){
-    this.getMovies()
+  created() {
+    this.getMovies();
   },
   mounted() {
-    this.createFields();
-    this.distributeFields();
-
     const container = document.getElementById("lp");
     const lp = container;
+    const crosshair = document.querySelector(".crosshair-y");
 
     let offset = { left: 0, top: 0 };
     let mouseDown = false;
@@ -54,7 +61,7 @@ export default {
       document.removeEventListener("mousemove", mouse);
     });
 
-    function mouse(evt) {
+    const mouse = (evt) => {
       if (mouseDown) {
         const center_x = offset.left + lp.offsetWidth / 2;
         const center_y = offset.top + lp.offsetHeight / 2;
@@ -64,8 +71,34 @@ export default {
         const degree = radians * (180 / Math.PI) * -1 + 90;
 
         lp.style.transform = `rotate(${degree}deg)`;
+
+        const imgTags = container.querySelectorAll("#lp img");
+        const crosshairRect = crosshair.getBoundingClientRect();
+        
+
+        let closestImg = null;
+        let closestTopDiff = Infinity;
+
+        imgTags.forEach((img) => {
+          const imgRect = img.getBoundingClientRect();
+
+          const topDiff = Math.abs(crosshairRect.top- imgRect.top);
+
+          if (topDiff <= crosshairRect.height / 2 && topDiff < closestTopDiff) {
+            closestImg = img;
+            closestTopDiff = topDiff;
+          }
+        });
+
+        if (closestImg) {
+          const altValue = closestImg.getAttribute("alt");
+          // console.log(altValue);
+          this.center_idx=altValue
+          this.center_img=imgURL+this.movies[this.center_idx].poster_path
+          this.videoId=this.movies[this.center_idx].ost
+        }
       }
-    }
+    };
 
     this.$nextTick(() => {
       offset = {
@@ -78,63 +111,112 @@ export default {
     createFields() {
       var container = document.getElementById("lp");
       container.innerHTML = ""; // Clear previous fields
+      container.style.webkitUserDrag = "none";
+      container.setAttribute("class", container.className + " noselect");
 
       for (var i = 0; i < parseInt(this.numFields); i++) {
-        var poster = document.createElement("div");
-        poster.className = "poster";
-        poster.innerText = i + 1;
+        var poster = document.createElement("img");
+        poster.setAttribute("class", "poster noselect");
+        poster.setAttribute(
+          "src",
+          imgURL + this.movies[i % this.movies.length].poster_path
+        );
+        poster.setAttribute("alt", i);
         container.appendChild(poster);
       }
     },
+
     distributeFields() {
       var radius = 200;
       var posters = document.getElementsByClassName("poster");
       var container = document.getElementById("lp");
       var width = container.offsetWidth;
       var height = container.offsetHeight;
-      var angle = 0;
+      var angle = Math.PI / -2; // 12시 방향으로 시작하도록 수정
       var step = (2 * Math.PI) / posters.length;
 
-      for (var i = 0; i < posters.length; i++) {
-        var x =
-          Math.round(width / 2 + radius * Math.cos(angle) - posters[i].offsetWidth / 2);
-        var y =
-          Math.round(height / 2 + radius * Math.sin(angle) - posters[i].offsetHeight / 2);
+      for (let i = 0; i < posters.length; i++) {
+        var x = Math.round(
+          width / 2 + radius * Math.cos(angle) - posters[i].offsetWidth / 2
+        );
+        var y = Math.round(
+          height / 2 + radius * Math.sin(angle) - posters[i].offsetHeight / 2
+        );
 
         posters[i].style.left = x + "px";
         posters[i].style.top = y + "px";
+        posters[i].style.webkitUserDrag = "none";
+
+        var rotationAngle = angle * (180 / Math.PI) + 90;
+        posters[i].style.transform = `rotate(${rotationAngle}deg)`;
 
         angle += step;
       }
     },
-    getMovies(){
-        axios({
+
+    getMovies() {
+      axios({
         method: "get",
         url: `${API_URL}/movies/ost/`,
       })
         .then((res) => {
-            for(const movie of res.data){
-                console.log(movie)
-                this.movies.push(movie)
-            }
-
+          this.movies = res.data;
+          this.createFields();
+          this.distributeFields();
+          this.center_img = imgURL + this.movies[0].poster_path;
+          this.videoId=this.movies[0].ost
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    playerPlay(){
+      this.$refs.ostplayer.playVideo()
+    },
+
+    playerPause(){
+      this.$refs.ostplayer.pauseVideo()
+    },
+
+    playOrPause(){
+      if(this.isPlaying){
+        this.isPlaying=false
+        this.playerPause()
+      }
+      else{
+        this.isPlaying=true
+        this.playerPlay()
+      }
     }
+
   },
 };
 </script>
 
 <style>
+#lp-con {
+  position: relative;
+}
+
+.crosshair-y {
+  width: 1px;
+  height: 300px;
+  background: #000;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
 #lp {
   width: 600px;
   height: 600px;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   position: relative;
   margin: 0 auto; /* 가운데 정렬 */
   border-radius: 50%; /* 둥글게 만들기 */
+  transform: rotate(0deg);
 }
 .center {
   width: 10px;
@@ -145,26 +227,28 @@ export default {
   background: #000;
 }
 .poster {
-  width: 20px;
-  height: 20px;
+  width: 130px;
+  height: 180px;
   position: absolute;
   background: #f00;
+  border-radius: 15px;
 }
-.crosshair-x {
-  width: 600px;
-  height: 1px;
-  background: #000;
-  position: absolute;
-  left: 0;
-  top: 300px;
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.crosshair-y {
-  width: 1px;
-  height: 600px;
-  background: #000;
-  position: absolute;
-  left: 300px;
-  top: 0;
+
+#musicpointer {
+  width: 100px;
+  height: 100px;
+  /* position : relative;
+  bottom: 50px; */
+  transform: translate(685%, -350%);
+  border-radius: 50%;
 }
 </style>
-  
