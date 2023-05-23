@@ -5,18 +5,8 @@
         Movie List
       </div>
       <hr />
-      <div class="container-fluid" style="margin-top: 40px">
-        <Flicking
-          class="slide"
-          :options="{ circular: true }"
-          :plugins="plugins"
-        >
-          <MovieListItem
-            v-for="movie in movies"
-            :key="movie.id"
-            :movie="movie"
-          />
-        </Flicking>
+      <div class="container flex flex-wrap">
+        <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie" />
       </div>
     </div>
   </div>
@@ -24,6 +14,7 @@
 
 <script>
 import MovieListItem from "@/components/MovieListItem";
+// import { Carousel } from "vue-carousel";
 
 export default {
   name: "MovieList",
