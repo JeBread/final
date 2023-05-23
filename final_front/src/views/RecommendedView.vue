@@ -1,9 +1,14 @@
 <template>
   <div class="">
-    <h1>영화 추천 페이지</h1>
+    <h1>Recommended</h1>
     <hr />
-    <div v-for="movie in fivemovies" :key="movie" :fivemovies="fivemovies">
-      <h3 class="fw-bold">{{ movie.title }}</h3>
+    <div
+      class="recomovie"
+      v-for="movie in fivemovies"
+      :key="movie"
+      :fivemovies="fivemovies"
+    >
+      <h3 class="font-semibold text-xl">{{ movie.title }}</h3>
       <p>정답 횟수 : {{ movie.answerCnt }}</p>
       <router-link
         :to="{
@@ -11,7 +16,7 @@
           params: { id: movie.id },
         }"
       >
-        <img :src="movie.poster_path" alt="" width="200" />
+        <img :src="movie.poster_path" />
       </router-link>
       <hr />
     </div>
@@ -56,4 +61,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.recomovie {
+  display: inline-block;
+  margin: 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 180px;
+  height: 250px;
+}
+</style>

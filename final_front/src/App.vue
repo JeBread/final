@@ -7,16 +7,34 @@
       <!-- Nav Bar -->
       <nav class="w-full container mx-auto">
         <div class="w-full flex items-center justify-between">
-          <a
+          <!-- <a
             class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl mt-5"
-            href="#"
+            href=""
             @click="toHome"
           >
             Rain<span
               class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
               >blur</span
             >
-          </a>
+          </a> -->
+          <router-link
+            v-if="token"
+            :to="{ name: 'MovieView' }"
+            class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl mt-5"
+            >Rain<span
+              class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
+              >blur</span
+            ></router-link
+          >
+          <router-link
+            v-if="!token"
+            :to="{ name: 'LogInView' }"
+            class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl mt-5"
+            >Rain<span
+              class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
+              >blur</span
+            ></router-link
+          >
           <!-- <img src="./assets/logo.png" alt="" id="logo" @click="toHome" /> -->
           <!-- nav bar right section-->
           <div class="flex w-1/2 justify-end content-center mt-5 font-semibold">
