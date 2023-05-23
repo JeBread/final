@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Quiz</h1>
-    <YoutubePlayer class="mt-5" :video-id="videoId" />
+    <YoutubePlayer class="mt-5" :video-id="videoId" @evt="refresh" />
     <button @click="getQuiz">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +22,7 @@
     <div v-for="(img, idx) in imgs" :key="idx" style="display: inline-block">
       <img
         :src="img.imgPath"
-        height="180"
-        width="180"
-        style="margin: 30px"
+        style="margin: 30px; height: 220px; width: 180px"
         @click="check(img.title)"
       />
     </div>
@@ -54,10 +52,18 @@ export default {
   computed: {},
   created() {
     this.getQuiz();
+    // const iframe=document.querySelectorAll("iframe")
+    // iframe.forEach((tag)=>{
+    //   if(tag.getAttribute("title").trim()==="YouTube video player"){
+    //     alert("동영상 오류")
+    //   }
+    // })
   },
   beforeUpdated() {
     this.getQuiz();
   },
+  mounted() {},
+  updated() {},
   methods: {
     getQuiz() {
       axios({
@@ -93,6 +99,7 @@ export default {
         });
     },
     check(imgTitle) {
+      
       if (imgTitle === this.correct.fields.title) {
         axios({
           method: "get",
