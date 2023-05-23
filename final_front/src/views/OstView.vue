@@ -248,7 +248,7 @@ export default {
   height: 100px;
   /* position : relative;
   bottom: 50px; */
-  transform: translate(0%, -350%);
+  transform: translate(685%, -350%);
   border-radius: 50%;
 }
 </style>
