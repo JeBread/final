@@ -1,7 +1,6 @@
 <template>
   <div class="">
     <div>
-      <p>테스트</p>
       <Flicking class="slide" :options="{ circular: true }" :plugins="plugins">
         <MovieListItem
           v-for="movie in this.$store.state.movies"
@@ -10,7 +9,6 @@
         ></MovieListItem>
       </Flicking>
     </div>
-    <hr />
     <MovieList />
   </div>
 </template>
@@ -18,15 +16,19 @@
 <script>
 import MovieList from "@/components/MovieList.vue";
 import { Flicking } from "@egjs/vue-flicking";
-import { Fade, Perspective, AutoPlay } from '@egjs/flicking-plugins'
+import { Fade, Perspective, AutoPlay } from "@egjs/flicking-plugins";
 import MovieListItem from "@/components/MovieListItem.vue";
 
 export default {
   name: "MovieView",
-  data(){
+  data() {
     return {
-      plugins: [new Fade(), new Perspective({ rotate: -1 }), new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false })],
-    }
+      plugins: [
+        new Fade(),
+        new Perspective({ rotate: -1 }),
+        new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false }),
+      ],
+    };
   },
   components: {
     MovieList,

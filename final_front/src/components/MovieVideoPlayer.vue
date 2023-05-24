@@ -1,47 +1,42 @@
 <template>
-    <div>
-        <youtube :video-id="videoId" ref="youtube" style=""></youtube>
-    </div>
-  </template>
+  <div class="justify-center justify-items-center items-center content-center">
+    <youtube :video-id="videoId" ref="youtube" style=""></youtube>
+  </div>
+</template>
 
 <script>
-import Vue from 'vue'
-import VueYoutube from 'vue-youtube'
- 
-Vue.use(VueYoutube)
+import Vue from "vue";
+import VueYoutube from "vue-youtube";
+
+Vue.use(VueYoutube);
 
 export default {
   name: "MovieVideoPlayer",
-  props:{
-    videoId:String
+  props: {
+    videoId: String,
   },
   data() {
     return {
-    
       playerVars: {
-        autoplay: 1
-      }
-    }
+        autoplay: 1,
+      },
+    };
   },
-  components: {
-    
-  },
+  components: {},
   computed: {
     player() {
-      return this.$refs.youtube.player
-    }
+      return this.$refs.youtube.player;
+    },
   },
-  methods:{
+  methods: {
     playVideo() {
-      this.player.playVideo()
+      this.player.playVideo();
     },
     pauseVideo() {
-      this.player.pauseVideo()
+      this.player.pauseVideo();
     },
-  }
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

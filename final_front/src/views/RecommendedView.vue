@@ -16,7 +16,10 @@
           params: { id: movie.id },
         }"
       >
-        <img :src="movie.poster_path" class="rounded-lg shadow-lg" />
+        <img
+          :src="movie.poster_path"
+          class="rounded-lg shadow-lg hover:scale-110 duration-300 ease-in-out"
+        />
       </router-link>
       <hr />
     </div>

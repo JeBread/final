@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Quiz</h1>
+    <h1 class="title">Quiz</h1>
     <!-- 모달창 -->
     <div class="jutify-center">
       <!-- 정답일때 모달창 -->
@@ -21,7 +21,12 @@
             />
           </svg>
           <p class="text-xl">Correct</p>
-          <button class="text-xl" @click="correctmodal = false">Close</button>
+          <button
+            class="text-xl text-pink-500 no-underline hover:text-indigo-500 hover:text-underline text-center transform hover:scale-125 duration-300 ease-in-out fill-current"
+            @click="correctmodal = false"
+          >
+            Close
+          </button>
         </div>
       </div>
       <!-- 오답일때 모달창 -->
@@ -43,7 +48,12 @@
           </svg>
 
           <p class="text-xl">Incorrect</p>
-          <button class="text-xl" @click="incorrectmodal = false">Retry</button>
+          <button
+            class="text-xl text-pink-500 no-underline hover:text-indigo-500 hover:text-underline text-center transform hover:scale-125 duration-300 ease-in-out fill-current"
+            @click="incorrectmodal = false"
+          >
+            Retry
+          </button>
         </div>
       </div>
     </div>
@@ -56,7 +66,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-12 h-12"
+        class="w-12 h-12 hover:scale-125 duration-300 ease-in-out"
       >
         <path
           stroke-linecap="round"
@@ -77,7 +87,7 @@
         height="250"
         width="180"
         style="height: 250px; margin: 30px"
-        class="rounded-lg shadow-lg"
+        class="rounded-lg shadow-lg hover:scale-110 duration-300 ease-in-out"
         @click="check(img.title)"
       />
     </div>
@@ -224,7 +234,7 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   padding: 15px;
-  top: 50%;
+  top: 38%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 20px;

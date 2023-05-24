@@ -1,6 +1,6 @@
 <template>
   <div>
-    <youtube :video-id="videoId" ref="youtube" style="display:none;"></youtube>
+    <youtube :video-id="videoId" ref="youtube" style="display: none"></youtube>
     <button @click="playVideo">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +8,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-14 h-14"
+        class="w-14 h-14 hover:scale-125 duration-300 ease-in-out"
       >
         <path
           stroke-linecap="round"
@@ -24,7 +24,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-14 h-14"
+        class="w-14 h-14 hover:scale-125 duration-300 ease-in-out"
       >
         <path
           stroke-linecap="round"
@@ -66,7 +66,7 @@ export default {
       iframe.forEach((tag) => {
         if (tag.getAttribute("title").trim() === "YouTube video player") {
           alert("동영상 오류\n다음 문제로 넘어갑니다.");
-          this.$emit("evt")
+          this.$emit("evt");
         }
       });
       this.player.playVideo();
