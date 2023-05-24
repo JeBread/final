@@ -29,7 +29,7 @@
                 {{ article.title }}
               </th>
             </router-link>
-            <td class="px-6 py-4 text-lg text-black">{{ article.user }}</td>
+            <td class="px-6 py-4 text-lg text-black">{{ article.username }}</td>
             <td class="px-6 py-4 text-lg text-black">
               {{ article.like_users_count }}
             </td>

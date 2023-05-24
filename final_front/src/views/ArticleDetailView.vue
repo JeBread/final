@@ -2,23 +2,27 @@
   <div>
     <h1>게시글 상세 정보</h1>
     <p>제목 : {{ article?.title }}</p>
-    <p>작성자 : {{ article?.user }}</p>
+    <p>작성자 : {{ article?.username }}</p>
     <p>내용 : {{ article?.content }}</p>
-    <p>작성 시간 : {{ article?.created_at }}</p>
-    <p>수정 시간 : {{ article?.updated_at }}</p>
-    <hr>
-    <div v-for="(comment,idx) in article.comment_set" :key="idx">
-    <p>{{comment.content}}</p>
-    <p>{{comment.username}}</p>
-    <hr>
+    <p>작성 시간 : {{ create_time }}</p>
+    <hr />
+    <div v-for="(comment, idx) in article.comment_set" :key="idx">
+      <p>{{ comment.content }}</p>
+      <p>{{ comment.username }}</p>
+      <hr />
     </div>
     <div>
       <h4>댓글 작성</h4>
-      <input type="text" maxlength="100" size="100" v-model="new_comment_content">
-      <br>
+      <input
+        type="text"
+        maxlength="100"
+        size="100"
+        v-model="new_comment_content"
+      />
+      <br />
       <button @click="createComment">작성</button>
     </div>
-    <br>
+    <br />
     <button @click="goBack">뒤로 가기</button>
   </div>
 </template>
@@ -32,13 +36,14 @@ export default {
   data() {
     return {
       article: null,
-      new_comment_content:'',
+      new_comment_content: "",
+      create_time: "",
     };
   },
   created() {
     this.getArticleDetail();
   },
-  
+
   methods: {
     getArticleDetail() {
       axios({
@@ -48,6 +53,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.article = res.data;
+          this.getCreateTime();
         })
         .catch((err) => console.log(err));
     },
@@ -55,22 +61,28 @@ export default {
       this.$router.go(-1);
     },
 
-    createComment(){
+    createComment() {
       axios({
-        method:"post",
+        method: "post",
         url: `${API_URL}/community/${this.article.id}/comments/create/`,
-        data:{content:this.new_comment_content},
+        data: { content: this.new_comment_content },
         headers: {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
-      .then((res)=>{
-        console.log(res)
-        this.new_comment_content=''
-        this.getArticleDetail()
-      })
-      .catch((err)=>console.log(err))
-    }
+        .then((res) => {
+          console.log(res);
+          this.new_comment_content = "";
+          this.getArticleDetail();
+        })
+        .catch((err) => console.log(err));
+    },
+    getCreateTime() {
+      this.create_time =
+        this.article.created_at.split("T")[0] +
+        " " +
+        this.article.created_at.split("T")[1].split(".")[0];
+    },
   },
 };
 </script>

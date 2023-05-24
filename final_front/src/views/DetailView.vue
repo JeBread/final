@@ -17,23 +17,23 @@
         <div class="overview">{{ movie.overview }}</div>
         <br />
         <br />
-        <button
-          class="text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6"
-          @click="yego = true"
-        >
-          예고편 보기
-        </button>
-        <button
-          @click="goBack"
-          class="mb-3 text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6"
-        >
-          뒤로 가기
-        </button>
+        <div class="button-container d-flex justify-between">
+          <p style="opacity: 0">///////////////</p>
+          <button
+            @click="goBack"
+            class="mb-3 text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6 mx-auto"
+          >
+            뒤로 가기
+          </button>
+          <YoutubePlayer
+            :video-id="movie.ost"
+            class="justify-center content-center"
+          />
+        </div>
       </div>
     </div>
 
     <MovieVideoPlayer
-      v-if="yego == true"
       :video-id="movie.video"
       class="mt-4 justify-center content-center"
     />
@@ -43,17 +43,18 @@
 <script>
 import MovieVideoPlayer from "@/components/MovieVideoPlayer.vue";
 import axios from "axios";
+import YoutubePlayer from "@/components/YoutubePlayer.vue";
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "DetailView",
   components: {
     MovieVideoPlayer,
+    YoutubePlayer,
   },
   data() {
     return {
       movie: null,
-      yego: false,
     };
   },
   created() {
