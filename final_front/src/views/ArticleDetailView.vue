@@ -6,6 +6,19 @@
     <p>내용 : {{ article?.content }}</p>
     <p>작성 시간 : {{ article?.created_at }}</p>
     <p>수정 시간 : {{ article?.updated_at }}</p>
+    <hr>
+    <div v-for="(comment,idx) in article.comment_set" :key="idx">
+    <p>{{comment.content}}</p>
+    <p>{{comment.username}}</p>
+    <hr>
+    </div>
+    <div>
+      <h4>댓글 작성</h4>
+      <input type="text" maxlength="100" size="100" v-model="new_comment_content">
+      <br>
+      <button @click="createComment">작성</button>
+    </div>
+    <br>
     <button @click="goBack">뒤로 가기</button>
   </div>
 </template>
@@ -19,11 +32,13 @@ export default {
   data() {
     return {
       article: null,
+      new_comment_content:'',
     };
   },
   created() {
     this.getArticleDetail();
   },
+  
   methods: {
     getArticleDetail() {
       axios({
@@ -39,6 +54,23 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+
+    createComment(){
+      axios({
+        method:"post",
+        url: `${API_URL}/community/${this.article.id}/comments/create/`,
+        data:{content:this.new_comment_content},
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+      .then((res)=>{
+        console.log(res)
+        this.new_comment_content=''
+        this.getArticleDetail()
+      })
+      .catch((err)=>console.log(err))
+    }
   },
 };
 </script>
