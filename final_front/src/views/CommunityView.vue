@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <h1>Community</h1>
+  <div class="container">
+    <h1 class="title">Community</h1>
     <router-link :to="{ name: 'CreateView' }">게시글 작성 </router-link>
     <hr />
     <ArticleList />
@@ -27,4 +27,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.title {
+  letter-spacing: 0px;
+  background: linear-gradient(
+    45deg,
+    deepskyblue,
+    deeppink,
+    deepskyblue,
+    deeppink
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 40px;
+}
+</style>
