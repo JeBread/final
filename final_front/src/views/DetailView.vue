@@ -21,7 +21,7 @@
           <p style="opacity: 0">///////////////</p>
           <button
             @click="goBack"
-            class="mb-3 text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6 mx-auto"
+            class="mb-3 font-semibold text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6 mx-auto"
           >
             뒤로 가기
           </button>
@@ -37,6 +37,12 @@
       :video-id="movie.video"
       class="mt-4 justify-center content-center"
     />
+    <!-- <div v-if="yego == true" class="bg-dark">
+      <div class="justify-center justify-items-center items-center content-center">
+    <youtube :video-id="videoId" ref="youtube" style=""></youtube>
+  </div>
+  <button @click="yego = false"></button>
+    </div> -->
   </div>
 </template>
 
@@ -55,10 +61,16 @@ export default {
   data() {
     return {
       movie: null,
+      yego: false,
     };
   },
   created() {
     this.getMovieDetail();
+  },
+  computed: {
+    player() {
+      return this.$refs.youtube.player;
+    },
   },
   methods: {
     getMovieDetail() {

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Recommended</h1>
+    <h1 class="title mb-5">Recommended</h1>
     <hr />
     <div
       class="recomovie"
