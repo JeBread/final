@@ -60,9 +60,10 @@
     >
       <img
         :src="img.imgPath"
-        height="180"
+        height="250"
         width="180"
-        style="margin: 30px"
+        style="height: 250px; margin: 30px"
+        class="rounded-lg shadow-lg"
         @click="check(img.title)"
       />
     </div>
