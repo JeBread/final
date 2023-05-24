@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list justify-content-center">
+  <div class="article-list justify-content-center mt-5">
     <h3>게시글 리스트</h3>
     <ArticleListItem
       v-for="article in articles"
