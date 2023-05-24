@@ -2,32 +2,74 @@
   <div id="lp-con">
     <!-- Number of fields: <input type="text"  v-model="numFields" /> -->
     <div id="lp"></div>
-    <img :src="center_img" id="musicpointer" @click="playOrPause"/>
 
-    <div class="crosshair-y" style="opacity: 0;"></div>
-    <OstViewPlayer :video-id="videoId" ref="ostplayer"/>
+    <img :src="center_img" id="musicpointer" :class="{ rotating: isPlaying }" />
+    <button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="white"
+        class="w-14 h-14 ost-view-playbtn"
+        v-if="!isPlaying"
+        @click="playOrPause"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+        />
+      </svg>
+    </button>
+
+    <button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="white"
+        class="w-14 h-14 ost-view-playbtn"
+        v-if="isPlaying"
+        @click="playOrPause"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 5.25v13.5m-7.5-13.5v13.5"
+        />
+      </svg>
+    </button>
+
+    <div class="crosshair-y" style="opacity: 0"></div>
+    <OstViewPlayer :video-id="videoId" ref="ostplayer" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import OstViewPlayer from '@/components/OstViewPlayer.vue';
+import OstViewPlayer from "@/components/OstViewPlayer.vue";
 
 const API_URL = "http://127.0.0.1:8000";
 const imgURL = "https://image.tmdb.org/t/p/original";
-
+/* eslint-disable */
 export default {
   name: "OstView",
-  components: {OstViewPlayer,},
+  components: { OstViewPlayer },
   data() {
     return {
       numFields: 6,
       movies: [],
       center_img: null,
       center_idx: 0,
-      videoId:null,
-      isPlaying:false,
+      videoId: null,
+      isPlaying: false,
+      
     };
+  },
+  computed: {
+    
   },
   watch: {
     // numFields() {
@@ -57,8 +99,6 @@ export default {
       document.removeEventListener("mousemove", mouse);
     });
 
-    
-
     const mouse = (evt) => {
       if (mouseDown) {
         const center_x = offset.left + lp.offsetWidth / 2;
@@ -72,7 +112,6 @@ export default {
 
         const imgTags = container.querySelectorAll("#lp img");
         const crosshairRect = crosshair.getBoundingClientRect();
-        
 
         let closestImg = null;
         let closestTopDiff = Infinity;
@@ -80,7 +119,7 @@ export default {
         imgTags.forEach((img) => {
           const imgRect = img.getBoundingClientRect();
 
-          const topDiff = Math.abs(crosshairRect.top- imgRect.top);
+          const topDiff = Math.abs(crosshairRect.top - imgRect.top);
 
           if (topDiff <= crosshairRect.height / 2 && topDiff < closestTopDiff) {
             closestImg = img;
@@ -91,9 +130,9 @@ export default {
         if (closestImg) {
           const altValue = closestImg.getAttribute("alt");
           // console.log(altValue);
-          this.center_idx=altValue
-          this.center_img=imgURL+this.movies[this.center_idx].poster_path
-          this.videoId=this.movies[this.center_idx].ost
+          this.center_idx = altValue;
+          this.center_img = imgURL + this.movies[this.center_idx].poster_path;
+          this.videoId = this.movies[this.center_idx].ost;
         }
       }
     };
@@ -162,32 +201,31 @@ export default {
           this.createFields();
           this.distributeFields();
           this.center_img = imgURL + this.movies[0].poster_path;
-          this.videoId=this.movies[0].ost
+          this.videoId = this.movies[0].ost;
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
-    playerPlay(){
-      this.$refs.ostplayer.playVideo()
+    playerPlay() {
+      this.$refs.ostplayer.playVideo();
     },
 
-    playerPause(){
-      this.$refs.ostplayer.pauseVideo()
+    playerPause() {
+      this.$refs.ostplayer.pauseVideo();
     },
 
-    playOrPause(){
-      if(this.isPlaying){
-        this.isPlaying=false
-        this.playerPause()
+    playOrPause() {
+      if (this.isPlaying) {
+        this.isPlaying = false;
+        this.playerPause();
+      } else {
+        this.isPlaying = true;
+        this.playerPlay();
       }
-      else{
-        this.isPlaying=true
-        this.playerPlay()
-      }
-    }
-
+      
+    },
   },
 };
 </script>
@@ -242,12 +280,35 @@ export default {
 }
 
 #musicpointer {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
+
+}
+
+.ost-view-playbtn {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rotating {
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 </style>
