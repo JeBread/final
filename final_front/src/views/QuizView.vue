@@ -22,7 +22,7 @@
     <div v-for="(img, idx) in imgs" :key="idx" style="display: inline-block">
       <img
         :src="img.imgPath"
-        style="margin: 30px; height: 220px; width: 180px"
+        style="margin: 30px; height: 220px; width: 180px;"
         @click="check(img.title)"
       />
     </div>
