@@ -29,7 +29,7 @@ export default {
   computed: {
     player() {
       return this.$refs.youtube.player
-    }
+    },
   },
   methods:{
     playVideo() {
@@ -38,6 +38,12 @@ export default {
     pauseVideo() {
       this.player.pauseVideo()
     },
+    // getTime(){
+    //   return this.player.getDuration()
+    // },
+    // getCurrentTime(){
+    //   return this.player.getCurrentTime()
+    // }
   }
 };
 </script>
