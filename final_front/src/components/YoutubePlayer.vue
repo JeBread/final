@@ -1,6 +1,6 @@
 <template>
   <div>
-    <youtube :video-id="videoId" ref="youtube" style=""></youtube>
+    <youtube :video-id="videoId" ref="youtube" style="display:none;"></youtube>
     <button @click="playVideo">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ export default {
       const iframe = document.querySelectorAll("iframe");
       iframe.forEach((tag) => {
         if (tag.getAttribute("title").trim() === "YouTube video player") {
-          alert("동영상 오류");
+          alert("동영상 오류\n다음 문제로 넘어갑니다.");
           this.$emit("evt")
         }
       });

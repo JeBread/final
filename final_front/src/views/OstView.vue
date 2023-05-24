@@ -39,6 +39,7 @@ export default {
     this.getMovies();
   },
   mounted() {
+    // const lp_container = document.getElementById("lp-con");
     const container = document.getElementById("lp");
     const lp = container;
     const crosshair = document.querySelector(".crosshair-y");
@@ -56,10 +57,7 @@ export default {
       document.removeEventListener("mousemove", mouse);
     });
 
-    container.addEventListener("mouseleave", () => {
-      mouseDown = false;
-      document.removeEventListener("mousemove", mouse);
-    });
+    
 
     const mouse = (evt) => {
       if (mouseDown) {
@@ -210,8 +208,8 @@ export default {
 }
 
 #lp {
-  width: 600px;
-  height: 600px;
+  width: 550px;
+  height: 550px;
   /* border: 1px solid #000; */
   position: relative;
   margin: 0 auto; /* 가운데 정렬 */
@@ -246,9 +244,10 @@ export default {
 #musicpointer {
   width: 100px;
   height: 100px;
-  /* position : relative;
-  bottom: 50px; */
-  transform: translate(685%, -350%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
 }
 </style>
