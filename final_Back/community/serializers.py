@@ -54,6 +54,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
 
 class ArticleListSerializer(serializers.ModelSerializer):
     comment_set=CommentSerializer(many=True,read_only=True)
+    username=serializers.CharField(source='user.username',read_only=True)
     like_users_count=serializers.IntegerField(source='like_users.count')
     class Meta:
         model=Article
