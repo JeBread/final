@@ -2,7 +2,7 @@
   <div>
     <div class="movie container">
       <div
-        class="w-full max-w-sm bg-gray-800 rounded-lg shadow dark:bg-gray-800"
+        class="w-full mt-2 max-w-sm bg-gray-800 rounded-lg shadow dark:bg-gray-800"
       >
         <router-link
           :to="{
@@ -11,19 +11,14 @@
           }"
         >
           <img
-            class="p-8 rounded-t-lg"
+            class="p-8 rounded-lg shadow-lg"
             :src="poster_url"
             alt="product image"
             width="380"
+            style="height: 500px"
           />
         </router-link>
         <div class="px-5 pb-5">
-          <h5
-            class="text-xl font-semibold tracking-tight text-gray-300 dark:text-white"
-          >
-            {{ movie.title }}
-          </h5>
-          <h5>{{ movie.vote_average }}</h5>
           <div class="flex items-center mt-2.5 mb-5">
             <svg
               aria-hidden="true"
@@ -87,16 +82,10 @@
             </svg>
             <span
               class="bg-indigo-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3"
-              >10.0</span
+              >{{ movie.vote_average }}</span
             >
           </div>
-          <div class="flex items-center justify-between">
-            <a
-              href="#"
-              class="text-white bg-indigo-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >Add to cart</a
-            >
-          </div>
+          <div class="flex items-center justify-between"></div>
         </div>
       </div>
     </div>

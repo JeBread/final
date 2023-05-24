@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <h1>Recommended</h1>
+  <div class="container">
+    <h1 class="title">Recommended</h1>
     <hr />
     <div
       class="recomovie"
@@ -9,14 +9,14 @@
       :fivemovies="fivemovies"
     >
       <h3 class="font-semibold text-xl">{{ movie.title }}</h3>
-      <p>정답 횟수 : {{ movie.answerCnt }}</p>
+      <p class="text-md">정답 횟수 : {{ movie.answerCnt }}</p>
       <router-link
         :to="{
           name: 'DetailView',
           params: { id: movie.id },
         }"
       >
-        <img :src="movie.poster_path" />
+        <img :src="movie.poster_path" class="rounded-lg shadow-lg" />
       </router-link>
       <hr />
     </div>
@@ -73,5 +73,19 @@ export default {
 img {
   width: 180px;
   height: 250px;
+}
+.title {
+  letter-spacing: 0px;
+  background: linear-gradient(
+    45deg,
+    deepskyblue,
+    deeppink,
+    deepskyblue,
+    deeppink
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 40px;
 }
 </style>
