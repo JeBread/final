@@ -60,10 +60,9 @@
     >
       <img
         :src="img.imgPath"
+        height="180"
         width="180"
-        height="270"
-        class="rounded-lg shadow-lg"
-        style="height: 270px; margin: 30px"
+        style="margin: 30px"
         @click="check(img.title)"
       />
     </div>
@@ -95,10 +94,18 @@ export default {
   computed: {},
   created() {
     this.getQuiz();
+    // const iframe=document.querySelectorAll("iframe")
+    // iframe.forEach((tag)=>{
+    //   if(tag.getAttribute("title").trim()==="YouTube video player"){
+    //     alert("동영상 오류")
+    //   }
+    // })
   },
   beforeUpdated() {
     this.getQuiz();
   },
+  mounted() {},
+  updated() {},
   methods: {
     getQuiz() {
       axios({

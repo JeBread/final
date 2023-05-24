@@ -6,16 +6,21 @@
     <p>평점 : {{ movie.vote_average }}</p>
     <p>개봉일 : {{ movie.release_date }}</p>
     <p>줄거리 : {{ movie?.overview }}</p>
+    <MovieVideoPlayer :video-id="movie.video" />
     <button @click="goBack">뒤로 가기</button>
   </div>
 </template>
 
 <script>
+import MovieVideoPlayer from "@/components/MovieVideoPlayer.vue";
 import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "DetailView",
+  components:{
+    MovieVideoPlayer,
+  },
   data() {
     return {
       movie: null,
