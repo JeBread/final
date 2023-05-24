@@ -287,7 +287,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 5px solid transparent;
+
 }
 
 .ost-view-playbtn {
