@@ -1,6 +1,5 @@
 <template>
-  <div class="article-list justify-content-center">
-    <h3>게시글 리스트</h3>
+  <div class="article-list justify-content-center mt-5">
     <ArticleListItem
       v-for="article in articles"
       :key="article.id"

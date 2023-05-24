@@ -1,7 +1,7 @@
 <template>
   <div class="movie-list" style="margin-left: 10%; margin-right: 10%">
     <div class="MovieView">
-      <div class="title" style="text-align: center; margin-top: 40px">
+      <div class="title" style="text-align: center; margin-top: 65px">
         Movie List
       </div>
       <hr />

@@ -1,13 +1,42 @@
 <template>
-  <div>
-    <h1 class="">Detail</h1>
-    <img :src="movie.poster_path" alt="" width="200" />
-    <p>영화 제목 : {{ movie?.title }}</p>
-    <p>평점 : {{ movie.vote_average }}</p>
-    <p>개봉일 : {{ movie.release_date }}</p>
-    <p>줄거리 : {{ movie?.overview }}</p>
-    <MovieVideoPlayer :video-id="movie.video" />
-    <button @click="goBack">뒤로 가기</button>
+  <div class="justify-center container">
+    <h1 class="title">Detail</h1>
+    <hr />
+    <!-- 여기서 부터는 새로운 디테일 페이지 -->
+    <div class="d-flex bg-gray-900 bg-opacity-60 mt-5 rounded-lg">
+      <div class="poster-container">
+        <img class="poster-image" :src="movie.poster_path" alt="" />
+      </div>
+
+      <div class="movie-details mx-5 mt-4">
+        <h2 class="movie-title mx-auto mt-3">{{ movie.title }}</h2>
+        <div class="rating-date mx-auto mt-4">
+          <div class="rating">평점: {{ movie.vote_average }}</div>
+          <div class="release-date">개봉일: {{ movie.release_date }}</div>
+        </div>
+        <div class="overview">{{ movie.overview }}</div>
+        <br />
+        <br />
+        <button
+          class="text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6"
+          @click="yego = true"
+        >
+          예고편 보기
+        </button>
+        <button
+          @click="goBack"
+          class="mb-3 text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6"
+        >
+          뒤로 가기
+        </button>
+      </div>
+    </div>
+
+    <MovieVideoPlayer
+      v-if="yego == true"
+      :video-id="movie.video"
+      class="mt-4 justify-center content-center"
+    />
   </div>
 </template>
 
@@ -18,12 +47,13 @@ const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "DetailView",
-  components:{
+  components: {
     MovieVideoPlayer,
   },
   data() {
     return {
       movie: null,
+      yego: false,
     };
   },
   created() {
@@ -51,3 +81,47 @@ export default {
   },
 };
 </script>
+
+<style>
+.poster-container {
+  flex-shrink: 0;
+}
+
+/* .bg-darkk {
+  background-color: #343a4071;
+} */
+
+.poster-image {
+  height: 400px;
+  width: auto;
+  max-width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.movie-title {
+  font-size: 24px;
+  margin: 0;
+}
+
+.rating-date {
+  display: flex;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.rating {
+  margin-right: 10px;
+}
+
+.overview {
+  font-size: 16px;
+  margin-top: 20px;
+}
+</style>
