@@ -33,10 +33,9 @@
       </div>
     </div>
 
-    <MovieVideoPlayer
-      :video-id="movie.video"
-      class="mt-4 justify-center content-center"
-    />
+    <div class="video-player-container">
+    <MovieVideoPlayer :video-id="movie.video" class="video-player" />
+  </div>
     <!-- <div v-if="yego == true" class="bg-dark">
       <div class="justify-center justify-items-center items-center content-center">
     <youtube :video-id="videoId" ref="youtube" style=""></youtube>
@@ -136,5 +135,12 @@ export default {
 .overview {
   font-size: 16px;
   margin-top: 20px;
+}
+
+.video-player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
 }
 </style>
