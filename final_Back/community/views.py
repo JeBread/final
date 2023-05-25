@@ -55,11 +55,13 @@ def like(request,article_pk):
 @api_view(['DELETE'])
 def article_delete(request,article_pk):
     article=Article.objects.get(pk=article_pk)
-    article.delete()
+    if request.user==article.user:
+        article.delete()
     return Response()
 
 @api_view(['DELETE'])
 def comment_delete(request,comment_pk):
     comment=Comment.objects.get(pk=comment_pk)
-    comment.delete()
+    if request.user==comment.user:
+        comment.delete()
     return Response()
