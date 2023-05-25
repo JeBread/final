@@ -5,6 +5,29 @@
     <div
       class="bg-gray-900 text-blue-300 opacity-75 w-full shadow-lg rounded-lg px-8 pt-5 pb-4 mb-5 mt-5"
     >
+      <div class="flex items-center justify-between">
+        <h5 class="opacity-0">|</h5>
+        <div class="delicon">
+          <svg
+            v-show="article.username === username"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#facc15"
+            class="w-6 h-6 hover:scale-125 duration-300 ease-in-out"
+            style="cursor: pointer"
+            @click="deleteArticle"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+            />
+          </svg>
+        </div>
+      </div>
+
       <h2 class="text-indigo-400 font-semibold">{{ article?.title }}</h2>
       <p class="mt-4">작성자 : {{ article?.username }}</p>
       <p class="text-lg mt-4 text-indigo-400 font-semibold">
@@ -14,12 +37,13 @@
       <span class="mt-4 flex justify-center"
         ><svg
           @click="likeMovie"
+          style="cursor: pointer"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6 relative object-center"
+          stroke="#ec4899"
+          class="w-6 h-6 relative object-center hover:scale-125 duration-300 ease-in-out"
         >
           <path
             stroke-linecap="round"
@@ -28,7 +52,7 @@
           /></svg>
         </span>
       <br />
-      <p>{{ like_users_count }}</p>
+      <p>{{ article.like_users_count }}</p>
     </div>
     <hr />
     <div
@@ -36,9 +60,30 @@
       v-for="(comment, idx) in article.comment_set"
       :key="idx"
     >
-      <div>
-        {{ comment.content }} <span style="opacity: 0"> | </span> |
-        <span style="opacity: 0"> | </span> {{ comment.username }}
+      <div class="text-xl flex items-center">
+        <div class="flex-grow">
+          {{ comment.content }} <span style="opacity: 0"> | </span> |
+          <span style="opacity: 0"> | </span> {{ comment.username }}
+        </div>
+        <div class="delicon mr-2">
+          <svg
+            v-show="comment.username === username"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#facc15"
+            class="w-6 h-6 mr-5 hover:scale-125 duration-300 ease-in-out"
+            style="cursor: pointer"
+            @click="deleteComment(comment.id)"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+            />
+          </svg>
+        </div>
       </div>
       <hr />
     </div>
@@ -71,6 +116,7 @@
         </div>
       </div>
     </div>
+
     <button
       class="mb-5 font-semibold text-blue-400 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out fill-current h-6 mx-auto"
       @click="goBack"
@@ -93,7 +139,7 @@ export default {
       article: null,
       new_comment_content: "",
       create_time: "",
-      like_users_count: "",
+      username: this.$store.state.myname,
     };
   },
   created() {
@@ -116,7 +162,6 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-
     createComment() {
       axios({
         method: "post",
@@ -140,7 +185,47 @@ export default {
         this.article.created_at.split("T")[1].split(".")[0];
     },
     likeMovie() {
-      this.like_users_count = this.article.like_users_count++;
+      axios({
+        method: "post",
+        url: `${API_URL}/community/${this.article.id}/like/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.getArticleDetail();
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteArticle() {
+      axios({
+        method: "delete",
+        url: `${API_URL}/community/${this.article.id}/delete/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.goBack();
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteComment() {
+      const commentId = this.article.comment_set[0].id;
+      axios({
+        method: "delete",
+        url: `${API_URL}/community/comments/${commentId}/delete/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.getArticleDetail();
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

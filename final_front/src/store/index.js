@@ -16,6 +16,7 @@ export default new Vuex.Store({
     token: null,
     articles: [],
     movie: null,
+    myname: null,
   },
   getters: {
     isLogin(state) {
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     },
     GET_QUIZ(state, quiz) {
       state.quiz = quiz;
+    },
+    MY_NAME(state, myname) {
+      state.myname = myname;
     },
   },
   actions: {
@@ -105,6 +109,7 @@ export default new Vuex.Store({
       })
         .then((res) => {
           context.commit("SAVE_TOKEN", res.data.key);
+          context.commit("MY_NAME", username);
         })
         .catch((err) => {
           console.log(err);
