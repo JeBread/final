@@ -11,19 +11,24 @@
         <h1
           class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left"
         >
-          Main
+          MoviEars의 재미
+          <br />
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
           >
-            Hero Message
+            OST Quiz
           </span>
-          to sell yourself!
+          와
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
+          >
+            OST Player
+          </span>
+          를 즐겨보세요 !
         </h1>
         <p
           class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left"
-        >
-          Sub-hero message, not too long and not too short. Make it just right!
-        </p>
+        ></p>
         <!-- 로그인 form -->
         <form
           class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
