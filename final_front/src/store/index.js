@@ -90,6 +90,7 @@ export default new Vuex.Store({
       })
         .then((res) => {
           context.commit("SAVE_TOKEN", res.data.key);
+          context.commit("MY_NAME", username);
         })
         .catch((err) => {
           console.log(err);
